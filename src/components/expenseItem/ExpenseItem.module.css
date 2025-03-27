@@ -1,0 +1,11 @@
+.expenseItemContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    padding: 1rem;
+    margin: 1rem ;
+    border-radius: 50px;
+    background-color: #4b4b4b;
+}
+
