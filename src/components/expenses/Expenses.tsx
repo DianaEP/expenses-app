@@ -1,12 +1,12 @@
-import { Expense } from '../../types/interfaces';
+import { useContext } from 'react';
+import ExpensesContext from '../../store/expensesContext';
 import ExpenseItem from '../expenseItem/ExpenseItem';
 import classes from './Expenses.module.css';
 
-interface ExpensesProps{
-    expenses: Expense[]
-}
 
-const Expenses: React.FC<ExpensesProps> = ({expenses}) => {
+
+const Expenses: React.FC = () => {
+    const { expenses } = useContext(ExpensesContext);
     return(
         <ul className={classes.expensesContainer}>
             {expenses.map((expense) => (
