@@ -2,10 +2,34 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
-    padding: 1rem;
+    box-shadow: var(--shadow);
+    padding: 1rem 2rem;
     margin: 1rem ;
     border-radius: 50px;
-    background-color: #4b4b4b;
+    background-color: var(--color-charcoal);
+}
+
+.details{
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    row-gap: 0.5rem;
+}
+
+.title{
+    font-size: 18px;
+    font-family: var(--font-family-headings);
+}
+
+.date{
+    font-size: 14px;
+    color: var(--color-light-gray);
+}
+
+.amount{
+  background-color: var(--color-primary);
+  padding: 1rem 2rem;
+  font-weight: bold;
+  border-radius: 25px;
 }
 

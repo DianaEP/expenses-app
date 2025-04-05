@@ -8,10 +8,13 @@ interface ExpenseItemProps {
 const ExpenseItem: React.FC<ExpenseItemProps> = ({item}) => {
     return(
         <li className={classes.expenseItemContainer}>
-            <div>{item.date}</div>
-            <div>
-                <h2>{item.title}</h2>
-                <div>${item.amount}</div>
+            
+            <div className={classes.details}>
+                <div className={classes.date}>{item.date}</div>  
+                <div className={classes.title}>{item.title}</div>
+            </div>
+            <div> 
+                <div className={classes.amount}>${item.amount}</div>
             </div>
         </li>
     )

@@ -1,7 +1,16 @@
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  --font-family-headings: 'Poppins', sans-serif;
+  --font-family: 'Inter', sans-serif;
+  --color-background: #1a1a1a; 
+  --color-primary: #578e7e;
+  --color-font: #e0e0e0;
+  --color-gold: #d4af37;
+  --color-charcoal: #3d3d3d;
+  --color-light-gray: #a0a0a0;
+
+  --shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  
 
 }
 
@@ -13,12 +22,18 @@ a {
 } */
 
 body {
+  display: flex;
+  justify-content: center;
+  font-family: var(--font-family);
   margin: 0;
+  padding: 0;
   box-sizing: border-box;
+  background-color: var(--color-background);
+  color: var(--color-font)
 }
 
-/* h1 {
-
-} */
+h1,h2,h3 {
+  font-family: var(--font-family-headings);
+}
 
 

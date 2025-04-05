@@ -1,4 +1,5 @@
 import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import classes from './NewExpense.module.css';
 import { useContext, useState } from 'react';
 import { Expense } from '../../types/interfaces';
@@ -96,6 +97,7 @@ const NewExpense : React.FC = () => {
                     onChange={handleDataChange}
                     dateFormat='yyyy-MM-dd'
                     placeholderText='Select a date'
+                    className={classes.datePicker}
                 />
                 {errors.date && <p className="error">{errors.date}</p>}
             </div>
