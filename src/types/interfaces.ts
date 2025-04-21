@@ -3,5 +3,6 @@ export interface Expense{
     title: string;
     date: string;
     amount: number;
+    // imageUrl: string;
 }
 

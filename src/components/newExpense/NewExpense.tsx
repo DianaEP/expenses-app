@@ -3,7 +3,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import classes from './NewExpense.module.css';
 import { useContext, useState } from 'react';
 import { Expense } from '../../types/interfaces';
-import { format } from 'date-fns';
+
 import { v4 as uuidv4 } from 'uuid';
 import ExpensesContext from '../../store/expensesContext';
 import useFormValidation from '../../util/formValidation/validationHook';
@@ -36,7 +36,7 @@ const NewExpense : React.FC = () => {
     const handleDataChange = (date: Date | null) => {
         setFormData((prevData) => ({
             ...prevData,
-            date : date ? format(date, 'MMMM dd, yyyy') : ''
+            date : date ? date.toISOString() : ''  // Store the selected date as an ISO string, e.g. "2025-07-14T00:00:00.000Z" because it's consistent, works great with `new Date()` and easy to parse
         }))
         if(errors){
             clearErrors();
@@ -93,7 +93,7 @@ const NewExpense : React.FC = () => {
                 <label htmlFor='date-picker'>Date</label>
                 <DatePicker 
                     id='date-picker'
-                    selected={formData.date ? new Date(formData.date) : null}
+                    selected={formData.date ? new Date(formData.date) : null}  //  Converting the stored ISO string back into a Date object so that the DatePicker can recognize it
                     onChange={handleDataChange}
                     dateFormat='yyyy-MM-dd'
                     placeholderText='Select a date'
