@@ -2,7 +2,7 @@ export interface Expense{
     id: string;
     title: string;
     date: string;
-    amount: number;
-    // imageUrl: string;
+    amount: string;
+    imageUrl: string;
 }
 

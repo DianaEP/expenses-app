@@ -19,15 +19,11 @@
 
 /* calendar */
 
-.datePicker .react-datepicker_header{
-    background-color: var(--color-charcoal) !important;
-    color: var(--color-light-gray);
+.customCalendar {
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    font-family: var(--font-family);
 }
 
-.react-datepicker__current-month {
-    font-weight: bold;
-  }
-  
-  .react-datepicker__day {
-    font-size: 16px;
-  }
+
+

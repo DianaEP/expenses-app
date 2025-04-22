@@ -17,6 +17,9 @@ const ExpenseItem: React.FC<ExpenseItemProps> = ({item}) => {
             <div> 
                 <div className={classes.amount}>${item.amount}</div>
             </div>
+            <div>
+                <img src={item.imageUrl} alt='ImagePreview' style={{width: '100px'}}/>
+            </div>
         </li>
     )
 }

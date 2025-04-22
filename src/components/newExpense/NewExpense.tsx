@@ -1,5 +1,6 @@
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import '../../index.css'
 import classes from './NewExpense.module.css';
 import { useContext, useState } from 'react';
 import { Expense } from '../../types/interfaces';
@@ -15,11 +16,15 @@ const NewExpense : React.FC = () => {
     const initialData = {
         id: uuidv4(),
         title: '',
-        amount: 0 ,
-        date: ''
+        amount: '' ,
+        date: '',
+        imageUrl: ''
     }
     const [formData, setFormData] =  useState<Expense>(initialData);
+    const [imageFile, setImageFile] = useState<File | null>(null);
+    const [temporaryImageUrl, setTemporaryImageUrl] = useState<string>('')
     const {errors, clearErrors, validateOnSubmit} = useFormValidation(formData);
+
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>, ) => {  
         const { name, value } = event.target;
@@ -43,18 +48,38 @@ const NewExpense : React.FC = () => {
         }
     }
 
+    const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0]; //The event.target.files is a FileList — a special object similar to an array that holds all the files the user selected.Grab the first (and usually only) file [0]
+        if(file){
+            setImageFile(file);
+            const imageUrl = URL.createObjectURL(file)
+            setTemporaryImageUrl(imageUrl);
+            console.log("Temporary Image URL Set:", imageUrl);
+            setFormData((prevData) => ({
+                ...prevData,
+                imageUrl: imageUrl, // Add the imageUrl field temporarily
+            }));
+        }
+    }
+
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        console.log(formData);
+        console.log("Form Data Before Submit:", formData);
+        console.log("Temporary Image URL:", temporaryImageUrl);
 
-        const validatedData = {
-            ...formData,
-            amount: Number(formData.amount)
-        }
+        
 
+        // const validatedData = {
+        //     ...formData,
+        //     imageUrl : temporaryImageUrl
+        // }
+
+        console.log("Validating and Adding Expense:", formData);
         if(validateOnSubmit()){
-            addExpense(validatedData)
+            addExpense(formData)
             setFormData(initialData);
+            setTemporaryImageUrl(''); 
+            setImageFile(null); 
 
         }
 
@@ -98,8 +123,20 @@ const NewExpense : React.FC = () => {
                     dateFormat='yyyy-MM-dd'
                     placeholderText='Select a date'
                     className={classes.datePicker}
+                    calendarClassName={classes.customCalendar}
                 />
                 {errors.date && <p className="error">{errors.date}</p>}
+            </div>
+
+            <div> 
+                <label htmlFor='image'>Trip Image</label>
+                <input 
+                    type='file'
+                    id='image'
+                    accept='image/*' //It tells the file input to only allow image file types (like .jpg, .png, .webp, etc.).
+                    onChange={handleImageChange}
+                />
+                {errors.imageUrl && <p className="error">{errors.imageUrl}</p>}
             </div>
 
             <button type="submit">Add Expense</button>
