@@ -2,12 +2,13 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../../index.css'
 import classes from './NewExpense.module.css';
-import { useContext, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { Expense } from '../../types/interfaces';
 
 import { v4 as uuidv4 } from 'uuid';
 import ExpensesContext from '../../store/expensesContext';
 import useFormValidation from '../../util/formValidation/validationHook';
+import Button from '../UI/button/Button';
 
 
 
@@ -24,7 +25,12 @@ const NewExpense : React.FC = () => {
     const [imageFile, setImageFile] = useState<File | null>(null);
     const [temporaryImageUrl, setTemporaryImageUrl] = useState<string>('')
     const {errors, clearErrors, validateOnSubmit} = useFormValidation(formData);
+    const fileInputRef = useRef<HTMLInputElement>(null);
 
+
+    const handleFileClick = () => {
+        fileInputRef.current?.click()
+    }
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>, ) => {  
         const { name, value } = event.target;
@@ -89,57 +95,77 @@ const NewExpense : React.FC = () => {
     
     return(
         <form className={classes.newExpenseContainer} onSubmit={handleSubmit}>
-            <div>
-                <label htmlFor='title'>Title</label>
-                <input 
-                    id='title'
-                    type="text" 
-                    name='title'
-                    value={formData.title}
-                    onChange={handleChange}
-                />
-                {errors.title && <p className="error">{errors.title}</p>}
+            <div className={classes.wrapper}>
+                <div className={classes.inputContainer}>
+                    <label htmlFor='title'>Title</label>
+                    <input 
+                        id='title'
+                        type="text" 
+                        name='title'
+                        value={formData.title}
+                        onChange={handleChange}
+                        className={classes.input}
+                    />
+                </div>
+                {errors.title && <p className={classes.error}>{errors.title}</p>}
             </div>
 
-            <div>
-                <label htmlFor='amount'>Amount</label>
-                <input
-                    id='amount' 
-                    type='text' 
-                    name='amount'
-                    value={formData.amount}
-                    onChange={handleChange}
-                />
-                {errors.amount && <p className="error">{errors.amount}</p>}
+            <div className={classes.wrapper}>
+                <div className={classes.inputContainer}>
+                    <label htmlFor='amount'>Amount</label>
+                    <input
+                        id='amount' 
+                        type='text' 
+                        name='amount'
+                        value={formData.amount}
+                        onChange={handleChange}
+                        className={classes.input}
+                    />
+                </div>
+                {errors.amount && <p className={classes.error}>{errors.amount}</p>}
             </div>
 
 
-            <div>
-                <label htmlFor='date-picker'>Date</label>
-                <DatePicker 
-                    id='date-picker'
-                    selected={formData.date ? new Date(formData.date) : null}  //  Converting the stored ISO string back into a Date object so that the DatePicker can recognize it
-                    onChange={handleDataChange}
-                    dateFormat='yyyy-MM-dd'
-                    placeholderText='Select a date'
-                    className={classes.datePicker}
-                    calendarClassName={classes.customCalendar}
-                />
-                {errors.date && <p className="error">{errors.date}</p>}
+            <div className={classes.wrapper}>
+                <div className={classes.inputContainer}>
+                    <label htmlFor='date-picker'>Date</label>
+                    <DatePicker 
+                        id='date-picker'
+                        selected={formData.date ? new Date(formData.date) : null}  //  Converting the stored ISO string back into a Date object so that the DatePicker can recognize it
+                        onChange={handleDataChange}
+                        dateFormat='yyyy-MM-dd'
+                        placeholderText='Select a date'
+                        className={classes.datePicker}
+                        calendarClassName={classes.customCalendar}
+                    />
+                </div>
+                {errors.date && <p className={classes.error}>{errors.date}</p>}
             </div>
 
-            <div> 
-                <label htmlFor='image'>Trip Image</label>
-                <input 
-                    type='file'
-                    id='image'
-                    accept='image/*' //It tells the file input to only allow image file types (like .jpg, .png, .webp, etc.).
-                    onChange={handleImageChange}
-                />
-                {errors.imageUrl && <p className="error">{errors.imageUrl}</p>}
+            <div className={classes.wrapper}>
+                <div className={`${classes.inputContainer} ${classes.fileInputContainer}`}> 
+                    <label htmlFor='image'>Trip Image</label>
+                    <input 
+                        ref={fileInputRef}
+                        type='file'
+                        id='image'
+                        accept='image/*' //It tells the file input to only allow image file types (like .jpg, .png, .webp, etc.).
+                        onChange={handleImageChange}
+                        style={{display: 'none'}}
+                    />
+                    <div className={classes.fileInputButton}>
+                        <Button 
+                            textOnly 
+                            onClick={handleFileClick}
+                            type='button'
+                        >Upload Image</Button>
+                        {imageFile && ( <p>Selected File: {imageFile.name}</p>)}
+                    </div>
+                </div>
+                {errors.imageUrl && <p className={classes.error}>{errors.imageUrl}</p>}
             </div>
 
-            <button type="submit">Add Expense</button>
+            <Button type='submit'>Add Expense</Button>
         </form>
     )
 }

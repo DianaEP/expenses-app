@@ -1,9 +1,37 @@
 .newExpenseContainer {
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 30rem;
+    row-gap: 1rem;
+    position: absolute;
+    top: 5rem;
+    right: 5rem;
+    padding: 5rem;
+    background-color: #1a1a1aaf;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
    
 }
 
-.datePicker{
+.wrapper{
+    width: 100%;
+}
+.inputContainer{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.fileInputContainer{
+
+}
+
+.fileInputButton{
+    width: 50%;
+}
+
+.datePicker, .input{
     padding: 0.5rem;
     font-size: 16px;
     border: 1px solid var(--color-primary); /* Muted Teal */
@@ -12,7 +40,7 @@
     color: var(--color-light-gray);
 }
 
-.datePicker:focus{
+.datePicker:focus, .input:focus{
     border-color: var(--color-gold);
     outline: none;
 }
