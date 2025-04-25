@@ -9,6 +9,7 @@ import { v4 as uuidv4 } from 'uuid';
 import ExpensesContext from '../../store/expensesContext';
 import useFormValidation from '../../util/formValidation/validationHook';
 import Button from '../UI/button/Button';
+import { ImageUp } from 'lucide-react';
 
 
 
@@ -95,6 +96,7 @@ const NewExpense : React.FC = () => {
     
     return(
         <form className={classes.newExpenseContainer} onSubmit={handleSubmit}>
+            <h3 className={classes.heading}>Add new holiday expense</h3>
             <div className={classes.wrapper}>
                 <div className={classes.inputContainer}>
                     <label htmlFor='title'>Title</label>
@@ -155,11 +157,14 @@ const NewExpense : React.FC = () => {
                     />
                     <div className={classes.fileInputButton}>
                         <Button 
-                            textOnly 
+                            hasIcon
+                            icon={ImageUp} 
+                            size={22} 
+                            color="#3d3d3d"
                             onClick={handleFileClick}
                             type='button'
                         >Upload Image</Button>
-                        {imageFile && ( <p>Selected File: {imageFile.name}</p>)}
+                        {imageFile && ( <p className={classes.imageFileName}>{imageFile.name}</p>)}
                     </div>
                 </div>
                 {errors.imageUrl && <p className={classes.error}>{errors.imageUrl}</p>}

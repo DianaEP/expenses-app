@@ -1,17 +1,20 @@
-.textOnlyButton{
-    border: none;
-    border-radius: 25px;
-    padding: 0.7rem 1rem; 
-    width: 80%;
-    background-color: transparent;
+.hasIconButton{
+    display: flex;
+    justify-content:space-around;
+    align-items: center;
+    border: 1px solid var(--color-primary);
+    border-radius: 5px;
+    padding: 0.4rem 1.2rem; 
+    width: 100%;
+    background-color: var(--color-background);
     font-size: 1rem;
     font-family: var(--font-family);
-    color: var(--color-font);
+    color: var(--color-light-gray);
     cursor: pointer;
     transition: 0.2s;
 }
 
-.textOnlyButton:hover{
+.hasIconButton:hover{
     color: var(--color-charcoal);
 }
 
@@ -19,7 +22,7 @@
     border: none;
     border-radius: 25px;
     padding: 0.7rem 1rem; 
-    width: 80%;
+    width: 100%;
     background-color: var(--color-primary);
     box-shadow: var(--shadow);
     font-size: 1rem;

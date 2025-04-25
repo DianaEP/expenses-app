@@ -4,11 +4,22 @@ import { format } from 'date-fns';
 
 interface ExpenseItemProps {
     item: Expense;
+    index: number;
+    currentIndex: number;
+    xOffset: number;
+    onClick: () => void;
 }
 
-const ExpenseItem: React.FC<ExpenseItemProps> = ({item}) => {
+const ExpenseItem: React.FC<ExpenseItemProps> = ({item, index, currentIndex, xOffset, onClick}) => {
     return(
-        <li className={classes.expenseItemContainer}>
+        <li 
+            className={`${classes.expenseItemContainer} ${index === currentIndex ?  classes.active : ''}`}
+            style={{
+                transform: `translateX(${xOffset * 100}%) scale(${index === currentIndex ? 1 : 0.80})`,
+                zIndex: index === currentIndex ? 10 : 1
+            }}
+            onClick={onClick}
+        >
             
             <div className={classes.details}>
                 <div className={classes.date}>{format( new Date(item.date), 'MMMM dd, yyyy')}</div>  

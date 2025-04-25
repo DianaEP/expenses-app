@@ -3,19 +3,25 @@ import { ReactNode } from 'react';
 
 interface ButtonProps{
     children: ReactNode;
-    textOnly?: boolean;
     type?: 'button' | 'submit' | 'reset';
     onClick?: () => void;
+    hasIcon?: boolean;
+    iconOnly?: boolean;
+    icon?: React.ComponentType<{ size?: number; color?: string }>;
+    size?: number;
+    color?: string;
+
 
 }
 
-const Button: React.FC<ButtonProps> = ({children, textOnly, onClick, type}) => {
+const Button: React.FC<ButtonProps> = ({children, onClick, type, hasIcon, iconOnly, icon: Icon, size = 24, color = 'black'}) => {
     return(
         <button 
             onClick={onClick}
-            className= {textOnly ? classes.textOnlyButton : classes.button}
+            className= {hasIcon ? classes.hasIconButton : iconOnly ? classes.iconOnlyButton : classes.button}
             type={type}
         >
+            {hasIcon && Icon &&(<Icon size= {size} color={color}/>)}
             {children}
         </button>
     )

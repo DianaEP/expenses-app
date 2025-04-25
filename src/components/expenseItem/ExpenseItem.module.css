@@ -7,6 +7,9 @@
     margin: 1rem ;
     border-radius: 50px;
     background-color: var(--color-charcoal);
+    position: absolute;
+    top: 50%;
+    left: 50%;
 }
 
 .details{
